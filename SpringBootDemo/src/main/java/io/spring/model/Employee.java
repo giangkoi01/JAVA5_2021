@@ -1,4 +1,4 @@
-package com.cuchuoi;
+package io.spring.model;
 
 import org.springframework.stereotype.Component;
 

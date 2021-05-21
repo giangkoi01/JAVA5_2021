@@ -1,53 +1,37 @@
 package io.spring.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cuchuoi.Employee;
-
-@RestController
+@Controller
 public class HomeController {
 	
-	@Autowired
-	private HttpServletRequest request;
-	
-//	@Autowired
-//	public HomeController(
-//			HttpServletRequest request,
-//			@Qualifier("Employee1") Employee employee,
-//			@Qualifier("Employee2") Employee employee2) {
-//		this.employee =  employee;
-//		this.employee2 =  employee2;
-//	}
-	
-	@Autowired
-	private Employee employee;
-	
-	@Autowired
-	@Qualifier("Employee2")
-	private Employee employee2;
-	
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello %s!", name);
+	@GetMapping(value = {"/home", "/index", "/", ""})
+	public String homePage(Model model){
+		//String[] A = new String[] {"/home", "/index", "/", ""};
+		model.addAttribute("user", "Pham Ngoc Huy");
+		return "index";
 	}
 	
-	@GetMapping("/hello/j4/v1")
-	public String helloJava4(HttpServletRequest request) {
-		String name = request.getParameter("name");
-		return String.format("Hello %s %s!", name, employee2.getName() );
-	}
+	@GetMapping("/products")
+	public String productPage(Model model){
+		model.addAttribute("user", "Product Page");
+		return "products/list";
+	} 
 	
-	@GetMapping("/hello/j4/v2")
-	public String helloJava4V2() {
-		String name = request.getParameter("name");
-		return String.format("Hello %s %s!", name, employee.getName() );
-	}
+	@PostMapping("/products")
+	public String productPage2(Model model){
+		model.addAttribute("user", "Product Page");
+		return "products/list";
+	} 
 	
+	@GetMapping("/products/{id}")
+	public String productPage3(@PathVariable String id, Model model){
+		model.addAttribute("id", "Product Page for Product id = " + id);
+		return "products/list";
+	} 
 
 }
