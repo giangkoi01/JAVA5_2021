@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body> 
-	List Page for USER
+	<p>${message}</p>
+	List Page for ADMIN
+	<a href="product/create">Create Product</a>
 </body>
 </html>
