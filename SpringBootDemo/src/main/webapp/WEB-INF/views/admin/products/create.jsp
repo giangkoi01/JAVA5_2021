@@ -28,6 +28,12 @@
 			Price : <form:input type="number" path="price" />
 			<span><form:errors path="price" cssClass="error"/></span>
 		</div>
+		
+		<div>
+			Price : <form:input type="number" path="image" />
+			<span><form:errors path="image" cssClass="error"/></span>
+		</div>
+		
 		<div>
 			<input type="submit" value="Submit" />
 		</div>

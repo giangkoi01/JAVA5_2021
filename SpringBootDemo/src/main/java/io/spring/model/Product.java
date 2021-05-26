@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,5 +37,7 @@ public class Product implements Serializable {
 	private String description;
 	
 	private Double price;
+	
+	private MultipartFile image;
 
 }
