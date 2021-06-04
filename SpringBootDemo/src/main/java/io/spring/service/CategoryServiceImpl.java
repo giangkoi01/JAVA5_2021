@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<Category> readPage(int pageSize, int pageNumber) {
 		//create page able
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		Page<Category> page = categoryRepository.page(pageable);
+		/* Page<Category> page = categoryRepository.page(pageable); */
 //		
 //		List<Category> result = PageImpl.
 //		
