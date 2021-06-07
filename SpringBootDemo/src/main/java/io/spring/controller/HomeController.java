@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.spring.repository.ProductRepository;
 import io.spring.service.ProductService;
@@ -14,7 +13,16 @@ import io.spring.service.ProductService;
 public class HomeController {
 	
 	@Autowired
+	private ProductService productService;
+	
+	@Autowired
 	private ProductRepository productRepository;
+	
+	@GetMapping("/products")
+	public String getAll(@RequestParam(value="name", required = false) String name, Model model){
+		model.addAttribute("list", productService.readAll(name));
+		return "productListPage";
+	}
 	
 	@GetMapping(value = {"/home", "/index", "/", ""})
 	public String homePage(Model model){
@@ -22,25 +30,33 @@ public class HomeController {
 		model.addAttribute("user", "Pham Ngoc Huy");
 		Integer count = productRepository.countQuantityByCategory(1,15);
 		model.addAttribute("countQuantity", count);
-		return "index";
+		return "homePage";
 	}
 	
-	@GetMapping("/products")
-	public String productPage(Model model){
-		model.addAttribute("user", "Product Page");
-		return "products/list";
-	} 
-	
-	@PostMapping("/products")
-	public String productPage2(Model model){
-		model.addAttribute("user", "Product Page");
-		return "products/list";
-	} 
-	
 	@GetMapping("/products/{id}")
-	public String productPage3(@PathVariable String id, Model model){
-		model.addAttribute("id", "Product Page for Product id = " + id);
-		return "products/list";
+	public String detailPage(Model model){
+		model.addAttribute("user", "Product Page");
+		return "detailProductPage";
+	} 
+	
+	@GetMapping("/login")
+	public String login(Model model){
+		return "login";
+	} 
+	
+	@GetMapping("/register")
+	public String register(Model model){
+		return "register";
+	} 
+	
+	@GetMapping("/forgot-password")
+	public String forgotpassword(Model model){
+		return "forgot-password";
+	} 
+	
+	@GetMapping("/404")
+	public String page404(Model model){
+		return "404";
 	} 
 
 }

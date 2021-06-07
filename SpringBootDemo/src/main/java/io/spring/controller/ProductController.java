@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,25 +16,25 @@ import io.spring.model.Product;
 import io.spring.service.ProductService;
 
 @Controller
+@RequestMapping("/admin")
 public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping("/product")
+	@GetMapping("/products")
 	public String getAll(@RequestParam(value="name", required = false) String name, Model model){
 		model.addAttribute("list", productService.readAll(name));
-		return "products/list";
+		return "productsAdminList";
 	}
 	
-
-	@GetMapping("/product/create")
+	@GetMapping("/products/create")
 	public String viewCreate(Model model){
 		model.addAttribute("productForm", new Product());
 		return "admin/products/create";
 	} 
 	
-	@PostMapping("/product/create")
+	@PostMapping("/products/create")
 	public String saveProduct(@Validated @ModelAttribute("productForm") Product product, BindingResult bindingResult, Model model){
 		//1. Validate Product
 		boolean check = bindingResult.hasErrors();
